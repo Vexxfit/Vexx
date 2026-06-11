@@ -138,6 +138,20 @@ body.admin .card .edit-btn{display:block}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 
+/* ===== Versión imprimible / PDF (botón 🖨 en admin o Ctrl+P) ===== */
+#printHeader{display:none}
+@media print{
+  #adminBar,.hero,#promoBar,.drops,.controls,.filters,.result-count,#cartFab,#cartPanel,#cartBackdrop,.foot,#toast,
+  .card-share,.fav-btn,.edit-btn,.mv-btns,.promo-btn,.card-cta,.oculto-badge,.proximo-badge,
+  #editModal,#cfgModal,#draftsModal,#promoModal,#bcastModal,#repliesModal,#qvModal{display:none!important}
+  body{background:#fff}
+  #printHeader{display:block;text-align:center;padding:18px 0 4px;font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:.04em;color:#1A1626}
+  #printHeader small{display:block;font-family:'Montserrat';font-size:12px;font-weight:600;letter-spacing:.02em;color:#6b6577;margin-top:2px}
+  .toolbar{padding:6px 24px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:10px 24px}
+  .card{break-inside:avoid;box-shadow:none!important;border:1px solid #ddd;transform:none!important}
+}
+
 /* ===== CONTROLES: búsqueda, marca, orden ===== */
 .controls{max-width:1080px;margin:0 auto;padding:6px 24px 6px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .search-wrap{position:relative;flex:1 1 240px;min-width:190px}
@@ -211,10 +225,14 @@ button.card-cta{width:100%;border:none;cursor:pointer;font-family:'Montserrat'}
 .field-hint a{color:var(--morado);font-weight:700}
 
 /* ===== MODALES ADMIN (Ajustes / Borradores) ===== */
-#cfgModal,#draftsModal,#promoModal{display:none;position:fixed;inset:0;z-index:100;background:rgba(26,22,38,.6);align-items:center;justify-content:center;padding:18px}
-#cfgModal.open,#draftsModal.open,#promoModal.open{display:flex}
+#cfgModal,#draftsModal,#promoModal,#bcastModal{display:none;position:fixed;inset:0;z-index:100;background:rgba(26,22,38,.6);align-items:center;justify-content:center;padding:18px}
+#cfgModal.open,#draftsModal.open,#promoModal.open,#bcastModal.open{display:flex}
 #cfgGuardar{background:var(--morado);color:#fff}
-#cfgCancelar,#draftsCerrar{background:#eee9f6;color:var(--morado)}
+#cfgCancelar,#draftsCerrar,#bcastCerrar{background:#eee9f6;color:var(--morado)}
+.bc-btn{background:var(--morado);color:#fff}
+.bc-btn:disabled{background:#cfccd6;cursor:not-allowed}
+#btnDifusion{background:rgba(255,255,255,.2);color:#fff}
+#btnPDF{background:rgba(255,255,255,.2);color:#fff}
 .draft{display:flex;align-items:center;gap:8px;padding:12px;border:1px solid #ececef;border-radius:11px;margin-bottom:10px}
 .draft-info{flex:1;min-width:0}
 .draft-name{font-size:14px;font-weight:700;line-height:1.2;word-break:break-word}
@@ -228,7 +246,18 @@ button.card-cta{width:100%;border:none;cursor:pointer;font-family:'Montserrat'}
 /* ===== Compartir · Vista rápida · Combos · Ocultos ===== */
 .c-combo{background:linear-gradient(135deg,var(--morado),var(--lila));color:#fff}
 .card-incluye{font-size:11.5px;color:var(--morado-prof);font-weight:600;margin-top:8px;line-height:1.45}
-.card-share{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:var(--morado);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:.18s;box-shadow:0 2px 8px rgba(26,22,38,.14)}
+.card-share{position:absolute;top:52px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:var(--morado);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:.18s;box-shadow:0 2px 8px rgba(26,22,38,.14)}
+.fav-btn{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:#cfccd6;font-size:17px;line-height:1;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(26,22,38,.14);transition:.18s}
+.fav-btn.on{color:#E11D48}
+.fav-btn:hover{transform:scale(1.1)}
+body.admin .fav-btn{display:none}
+.qv-rel-h{font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:16px}
+.qv-rel{display:flex;gap:10px;margin-top:8px}
+.qv-rel-card{flex:1;min-width:0;display:flex;gap:9px;align-items:center;border:1px solid #ececef;border-radius:11px;padding:8px;cursor:pointer;transition:.15s}
+.qv-rel-card:hover{border-color:rgba(145,71,255,.4);box-shadow:0 4px 12px rgba(92,22,197,.10)}
+.qv-rel-card img{width:44px;height:44px;border-radius:8px;object-fit:cover;flex:0 0 auto;background:var(--crema)}
+.qv-rel-name{font-size:12px;font-weight:700;line-height:1.25}
+.qv-rel-price{font-size:12px;color:var(--morado);font-weight:700;margin-top:2px}
 .card:hover .card-share{opacity:1}
 body.admin .card-share{display:none}
 .card-share:hover{background:#fff;color:var(--carbon)}
@@ -363,6 +392,8 @@ body:not(.admin) .proximo-badge{display:none}
   <button id="btnImportar">⇪ Importar Excel</button>
   <button id="btnOptimizar">🖼 Optimizar fotos</button>
   <button id="btnRespuestas">💬 Respuestas</button>
+  <button id="btnDifusion">📢 Difusión</button>
+  <button id="btnPDF">🖨 PDF</button>
   <button id="btnAjustes">⚙ Ajustes</button>
   <button id="btnDescargar">⬇ Descargar</button>
   <button id="btnSalir">Salir</button>
@@ -400,6 +431,8 @@ body:not(.admin) .proximo-badge{display:none}
   </div>
 </section>
 
+<div id="printHeader">VEXX · CATÁLOGO DE SUPLEMENTOS<small>@vexx.fit · Querétaro y Salamanca — pide por DM</small></div>
+
 <section class="toolbar">
   <h2>El catálogo</h2>
   <div class="filters" id="filters">
@@ -426,6 +459,7 @@ body:not(.admin) .proximo-badge{display:none}
     <option value="vend-desc">Más vendidos</option>
   </select>
   <button id="onlyAvail" class="fbtn" type="button">✓ Solo disponibles</button>
+  <button id="onlyFavs" class="fbtn" type="button">♥ Favoritos</button>
 </div>
 <p class="result-count" id="resultCount">10 productos</p>
 
@@ -599,6 +633,30 @@ body:not(.admin) .proximo-badge{display:none}
   </div>
 </div>
 
+<!-- ===== DIFUSIÓN: CÓDIGO DE DESCUENTO / INVITACIÓN AL CATÁLOGO ===== -->
+<div id="bcastModal">
+  <div class="modal-box">
+    <h3>Difusión para Instagram</h3>
+    <label>Anunciar un código de descuento</label>
+    <select id="bcCode"></select>
+    <div class="modal-actions" style="margin-top:10px">
+      <button class="bc-btn" id="bcCodePost">⬇ Post (4:5)</button>
+      <button class="bc-btn" id="bcCodeStory">⬇ Historia (9:16)</button>
+    </div>
+    <p class="field-hint" id="bcCodeHint" style="margin-top:8px"></p>
+    <hr style="border:none;border-top:1px solid #eee;margin:18px 0">
+    <label>Invitación al catálogo</label>
+    <p class="field-hint" style="margin-bottom:4px">Tu eslogan, el -10%, cuántos productos hay y el link del catálogo.</p>
+    <div class="modal-actions" style="margin-top:10px">
+      <button class="bc-btn" id="bcInvPost">⬇ Post (4:5)</button>
+      <button class="bc-btn" id="bcInvStory">⬇ Historia (9:16)</button>
+    </div>
+    <div class="modal-actions">
+      <button id="bcastCerrar">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <!-- ===== VISTA RÁPIDA DE PRODUCTO ===== -->
 <div id="qvModal" class="">
   <div class="qv-box">
@@ -611,6 +669,7 @@ body:not(.admin) .proximo-badge{display:none}
       <p class="qv-desc" id="qvDesc">Micronizada · CreaClean® · 90 porciones</p>
       <div id="qvIncluye"></div>
       <div class="qv-price" id="qvPrice"></div>
+      <div id="qvRelated"></div>
       <div class="qv-actions">
         <button id="qvAdd">🔔 Avísame cuando llegue</button>
         <button id="qvShare" title="Compartir">
@@ -656,7 +715,7 @@ body:not(.admin) .proximo-badge{display:none}
   </div>
 </aside>
 
-<div id="toast" class="">Ajustes guardados</div>
+<div id="toast" class="show">Ajustes guardados</div>
 
 <script>
 let DATA = JSON.parse(document.getElementById('vexx-data').textContent);
@@ -668,6 +727,16 @@ let currentBrand = 'all';
 let searchQuery = '';
 let currentSort = 'def';
 let onlyAvail = false;
+let onlyFavs = false;
+/* Favoritos del cliente (persisten en su navegador) */
+const LS_FAVS='vexx_favs';
+let FAVS=new Set();
+try{ FAVS=new Set(JSON.parse(localStorage.getItem(LS_FAVS)||'[]')); }catch(e){}
+function toggleFav(id){
+  if(FAVS.has(id)) FAVS.delete(id); else FAVS.add(id);
+  try{ localStorage.setItem(LS_FAVS, JSON.stringify([...FAVS])); }catch(e){}
+  render();
+}
 let editIdx = null;
 
 /* Comparadores de ordenamiento */
@@ -699,6 +768,7 @@ function render(){
   list = list.filter(({p})=>{
     if((p.oculto||p.drop) && !isAdmin) return false;
     if(onlyAvail && (+p.stock||0)<=0) return false;
+    if(onlyFavs && !FAVS.has(p.id)) return false;
     if(currentFilter!=='all' && p.cat!==currentFilter) return false;
     if(currentBrand!=='all' && (p.marca||'')!==currentBrand) return false;
     if(q){
@@ -715,7 +785,8 @@ function render(){
     card.className='card'+(p.oculto?' oculto':'');
     const it = p.imgT;
     const imgStyle = it ? ` style="transform:translate(${it.x}%,${it.y}%) scale(${it.z})"` : '';
-    const shareBtn = `<button class="card-share" data-share="${p.id}" title="Compartir" aria-label="Compartir producto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg></button>`;
+    const shareBtn = `<button class="card-share" data-share="${p.id}" title="Compartir" aria-label="Compartir producto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg></button>`
+      + `<button class="fav-btn ${FAVS.has(p.id)?'on':''}" data-fav="${p.id}" title="Favorito" aria-label="Marcar como favorito">♥</button>`;
     const ocultoBadge = p.oculto ? '<span class="oculto-badge">Oculto</span>' : (p.drop ? '<span class="proximo-badge">Próximo</span>' : '');
     const et = effTag(p);
     const ribbon = et ? `<div class="ribbon r-${et}">${ribbonLabel(et)}</div>` : '';
@@ -760,6 +831,7 @@ function render(){
   document.querySelectorAll('.card-cta[data-notify]').forEach(b=>b.addEventListener('click',e=>{notifyMe(e.currentTarget.dataset.notify)}));
   document.querySelectorAll('[data-qv]').forEach(el=>{ el.style.cursor='pointer'; el.addEventListener('click',()=>openQuickView(el.dataset.qv)); });
   document.querySelectorAll('[data-share]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); shareProduct(b.dataset.share); }));
+  document.querySelectorAll('[data-fav]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); toggleFav(b.dataset.fav); }));
   document.querySelectorAll('.mv-btns button').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); moveProd(+b.dataset.i, +b.dataset.mv); }));
   document.querySelectorAll('[data-promo]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); openPromo(b.dataset.promo); }));
   renderDrops();
@@ -1088,11 +1160,13 @@ function buildCleanHTML(){
   document.getElementById('draftsModal').classList.remove('open');
   document.getElementById('repliesModal').classList.remove('open');
   document.getElementById('repliesList').innerHTML='';
+  document.getElementById('bcastModal').classList.remove('open');
+  document.getElementById('bcCode').innerHTML='';
   document.getElementById('dropsRow').innerHTML='';
   document.getElementById('dropsSec').classList.remove('on');
   document.getElementById('promoBar').classList.remove('on');
   document.getElementById('promoBar').innerHTML='';
-  ['qvMedia','qvIncluye','qvPrice'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=''; });
+  ['qvMedia','qvIncluye','qvPrice','qvRelated'].forEach(id=>{ const el=document.getElementById(id); if(el) el.innerHTML=''; });
   const comboL=document.getElementById('comboList'); if(comboL) comboL.innerHTML='';
   const galT=document.getElementById('galThumbs'); if(galT) galT.innerHTML='';
   const fprev=document.getElementById('fImgPrev'); if(fprev) fprev.removeAttribute('src');
@@ -1438,10 +1512,17 @@ document.getElementById('onlyAvail').addEventListener('click',()=>{
   document.getElementById('onlyAvail').classList.toggle('active',onlyAvail);
   render();
 });
+document.getElementById('onlyFavs').addEventListener('click',()=>{
+  onlyFavs=!onlyFavs;
+  document.getElementById('onlyFavs').classList.toggle('active',onlyFavs);
+  if(onlyFavs && !FAVS.size) toast('Aún no marcas favoritos · toca el ♥ de un producto');
+  render();
+});
 function resetFilters(){
-  currentFilter='all'; currentBrand='all'; searchQuery=''; currentSort='def'; onlyAvail=false;
+  currentFilter='all'; currentBrand='all'; searchQuery=''; currentSort='def'; onlyAvail=false; onlyFavs=false;
   document.querySelectorAll('#filters .fbtn').forEach(x=>x.classList.toggle('active',x.dataset.f==='all'));
   document.getElementById('onlyAvail').classList.remove('active');
+  document.getElementById('onlyFavs').classList.remove('active');
   document.getElementById('q').value='';
   document.getElementById('brandFilter').value='all';
   document.getElementById('sortBy').value='def';
@@ -1642,6 +1723,15 @@ function openQuickView(id){
   M('qvPrice').innerHTML = finalPrice(p)<=0
     ? '<span class="price-new" style="font-size:24px">Precio por anunciar</span>'
     : (p.pct>0?'<span class="price-old">'+money(p.precio)+'</span>':'')+'<span class="price-new">'+money(finalPrice(p))+'</span>'+(p.pct>0?'<span class="save-tag">-'+p.pct+'%</span>':'');
+  // "Combina bien con": hasta 2 productos disponibles de otra categoría
+  const rel=DATA.productos.filter(x=>x.id!==p.id && !x.oculto && !x.drop && (+x.stock||0)>0 && x.cat!==p.cat).slice(0,2);
+  M('qvRelated').innerHTML = rel.length
+    ? '<div class="qv-rel-h">Combina bien con</div><div class="qv-rel">'+rel.map(r=>{
+        const th=r.img?'<img src="'+r.img+'" alt="">':'';
+        return '<div class="qv-rel-card" data-rel="'+esc(r.id)+'">'+th+'<div><div class="qv-rel-name">'+esc(r.nombre)+'</div><div class="qv-rel-price">'+money(finalPrice(r))+'</div></div></div>';
+      }).join('')+'</div>'
+    : '';
+  M('qvRelated').querySelectorAll('[data-rel]').forEach(el=>el.onclick=()=>openQuickView(el.dataset.rel));
   const noVenta=(+p.stock||0)<=0 || p.drop;
   const add=M('qvAdd');
   add.textContent = noVenta?'🔔 Avísame cuando llegue':'Agregar a mis piezas';
@@ -1758,6 +1848,47 @@ function roundPath(g,x,y,w,h,r){
   g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r);
   g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath();
 }
+/* Listón de esquina en canvas: misma geometría, degradado, sombra y dobleces
+   que el .ribbon de la tienda (banda a 45° cuyo centro queda a 0.149s del
+   vértice; los extremos sobresalen del borde y los dobleces quedan detrás). */
+function drawCornerRibbon(g, x, y, s, et){
+  const label=ribbonLabel(et);
+  const grads={oferta:['#fb3a5d','#E11D48'], nuevo:['#22c55e','#16a34a'], top:['#9147FF','#5C16C5']};
+  const darks={oferta:'#9f1239', nuevo:'#14532d', top:'#3b0a78'};
+  const shadows={oferta:'rgba(120,8,35,.45)', nuevo:'rgba(12,80,40,.45)', top:'rgba(50,8,110,.45)'};
+  const c=grads[et]||grads.oferta, dark=darks[et]||darks.oferta;
+  /* banda ancha que cruza la esquina; los extremos se cortan PARALELOS a los
+     bordes de la foto y sobresalen apenas (ext), con doblez oscuro detrás */
+  const off=s*0.149, th=s*0.120, ext=s*0.030, fold=s*0.036;
+  const a=off-th/2, b=off+th/2;
+  g.save();
+  g.translate(x,y); g.rotate(-Math.PI/4);
+  // dobleces oscuros detrás de los extremos
+  g.fillStyle=dark;
+  g.beginPath(); g.moveTo(-(b+ext), b); g.lineTo(-(b+ext)+fold, b); g.lineTo(-(b+ext), b+fold); g.closePath(); g.fill();
+  g.beginPath(); g.moveTo(b+ext, b); g.lineTo(b+ext-fold, b); g.lineTo(b+ext, b+fold); g.closePath(); g.fill();
+  // banda: trapecio con cortes a 45° (paralelos a los bordes de la foto)
+  const grad=g.createLinearGradient(0, a, 0, b);
+  grad.addColorStop(0,c[0]); grad.addColorStop(1,c[1]);
+  g.shadowColor=shadows[et]||shadows.oferta; g.shadowBlur=s*0.04; g.shadowOffsetY=s*0.014;
+  g.fillStyle=grad;
+  g.beginPath();
+  g.moveTo(-(a+ext), a);
+  g.lineTo(a+ext, a);
+  g.lineTo(b+ext, b);
+  g.lineTo(-(b+ext), b);
+  g.closePath(); g.fill();
+  g.shadowColor='transparent'; g.shadowBlur=0; g.shadowOffsetY=0;
+  // texto
+  g.fillStyle='#fff';
+  g.font='800 '+Math.round(s*0.050)+'px "Montserrat"';
+  try{ g.letterSpacing=Math.round(s*0.007)+'px'; }catch(e){}
+  g.textAlign='center'; g.textBaseline='middle';
+  g.fillText(label, 0, off+s*0.004);
+  try{ g.letterSpacing='0px'; }catch(e){}
+  g.restore();
+  g.textAlign='center'; g.textBaseline='alphabetic';
+}
 async function genPromo(W,H){
   const p=findProd(promoId); if(!p) return;
   toast('Generando imagen…');
@@ -1805,32 +1936,9 @@ async function genPromo(W,H){
       g.restore();
     }catch(e){}
   }
-  // listón / corner ribbon anclado a la esquina sup-izq de la foto (estilo e-commerce)
+  // listón / corner ribbon — réplica exacta del de la tienda (.ribbon)
   const et=effTag(p);
-  if(et){
-    const label = ribbonLabel(et);   // OFERTA / NUEVO / TOP
-    const main={nuevo:'#16a34a',oferta:'#E11D48',top:'#5C16C5'}[et]||'#E11D48';
-    const dark={nuevo:'#14532d',oferta:'#9f1239',top:'#3b0a78'}[et]||'#9f1239';
-    const sIn=fw*0.085, sOut=fw*0.255, fold=fw*0.052, sMid=(sIn+sOut)/2;
-    g.save();
-    g.translate(fx, fy);
-    // dobleces oscuros que sobresalen apenas del borde (efecto envuelto)
-    g.fillStyle=dark;
-    g.beginPath(); g.moveTo(sIn,0); g.lineTo(sOut,0); g.lineTo(sOut,-fold); g.closePath(); g.fill();
-    g.beginPath(); g.moveTo(0,sIn); g.lineTo(0,sOut); g.lineTo(-fold,sOut); g.closePath(); g.fill();
-    // banda principal asentada sobre la foto, con sombra
-    g.shadowColor='rgba(0,0,0,.30)'; g.shadowBlur=fw*0.022; g.shadowOffsetX=fw*0.004; g.shadowOffsetY=fw*0.004;
-    g.fillStyle=main;
-    g.beginPath(); g.moveTo(sIn,0); g.lineTo(sOut,0); g.lineTo(0,sOut); g.lineTo(0,sIn); g.closePath(); g.fill();
-    g.shadowColor='transparent'; g.shadowBlur=0; g.shadowOffsetX=0; g.shadowOffsetY=0;
-    // texto centrado a lo largo de la banda
-    g.translate(sMid/2, sMid/2); g.rotate(-Math.PI/4);
-    g.fillStyle='#fff';
-    g.font='400 '+Math.round(fw*0.072)+'px "Bebas Neue"';
-    g.textAlign='center'; g.textBaseline='middle';
-    g.fillText(label, 0, 0);
-    g.restore(); g.textAlign='center'; g.textBaseline='alphabetic';
-  }
+  if(et) drawCornerRibbon(g, fx, fy, fw, et);
   y = fy + fw + W*0.082;
   // nombre
   g.textAlign='center'; g.fillStyle='#F7F7F8';
@@ -1844,12 +1952,12 @@ async function genPromo(W,H){
   g.fillStyle='rgba(247,247,248,.75)';
   g.fillText((p.marca||'')+(p.sabor?'  ·  '+p.sabor:''), W/2, y);
   y += W*0.082;
-  // línea "Antes $X · -10% · Ahorras $Y" (Ahorras en rojo)
+  // línea "-10% · Ahorras $Y" (el precio viejo solo va abajo, tachado)
   if(p.pct>0){
     const ahorro=p.precio-finalPrice(p);
     g.font='600 '+Math.round(W*0.030)+'px "Montserrat"';
     g.textBaseline='alphabetic';
-    const s1='Antes '+money(p.precio)+'   ·   -'+p.pct+'%   ·   ', s2='Ahorras '+money(ahorro);
+    const s1='-'+p.pct+'%   ·   ', s2='Ahorras '+money(ahorro);
     const w1=g.measureText(s1).width, w2=g.measureText(s2).width, sx=(W-(w1+w2))/2;
     g.textAlign='left';
     g.fillStyle='rgba(247,247,248,.62)'; g.fillText(s1, sx, y);
@@ -1904,6 +2012,168 @@ async function genPromo(W,H){
     toast('La foto de este producto viene de un link externo que no lo permite. Súbela como archivo en ✎ Editar.');
   }
 }
+
+/* ===== Difusión: imágenes de código de descuento e invitación al catálogo ===== */
+function siteUrlShort(){
+  const m=document.querySelector('meta[property="og:url"]');
+  return ((m&&m.content)||'https://vexxfit.github.io/Vexx/').replace(/^https?:\/\//,'').replace(/\/$/,'');
+}
+async function promoFonts(){
+  try{
+    await document.fonts.load('400 100px "Bebas Neue"');
+    await document.fonts.load('600 40px "Montserrat"');
+    await document.fonts.load('700 40px "Montserrat"');
+    await document.fonts.load('800 40px "Montserrat"');
+  }catch(e){}
+}
+function promoBase(W,H){
+  const cv=document.createElement('canvas'); cv.width=W; cv.height=H;
+  const g=cv.getContext('2d');
+  g.fillStyle='#1A1626'; g.fillRect(0,0,W,H);
+  let rg=g.createRadialGradient(W*0.85,H*0.04,0,W*0.85,H*0.04,W*0.95);
+  rg.addColorStop(0,'rgba(145,71,255,.38)'); rg.addColorStop(1,'rgba(145,71,255,0)');
+  g.fillStyle=rg; g.fillRect(0,0,W,H);
+  rg=g.createRadialGradient(W*0.04,H*0.97,0,W*0.04,H*0.97,W*0.95);
+  rg.addColorStop(0,'rgba(92,22,197,.42)'); rg.addColorStop(1,'rgba(92,22,197,0)');
+  g.fillStyle=rg; g.fillRect(0,0,W,H);
+  return {cv,g};
+}
+async function promoLogo(g,W,y){
+  try{
+    const logo=await loadImg(document.getElementById('logoTop').src);
+    const lw=W*0.22, lh=lw*logo.height/logo.width;
+    g.drawImage(logo,(W-lw)/2, y, lw, lh);
+    return y+lh;
+  }catch(e){ return y+W*0.1; }
+}
+function promoFooter(g,W,H){
+  g.textAlign='center';
+  g.font='700 '+Math.round(W*0.029)+'px "Montserrat"'; g.fillStyle='#F7F7F8';
+  g.fillText('Pide por DM  →  @'+igUser(), W/2, H-H*0.052);
+  g.font='600 '+Math.round(W*0.022)+'px "Montserrat"'; g.fillStyle='rgba(247,247,248,.55)';
+  g.fillText('Querétaro · Salamanca — entrega directa', W/2, H-H*0.026);
+}
+function downloadPNG(cv,name){
+  cv.toBlob(b=>{
+    if(!b){ toast('No se pudo generar la imagen'); return; }
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(b); a.download=name;
+    a.click(); URL.revokeObjectURL(a.href);
+    toast('✅ Imagen descargada · lista para Instagram');
+  },'image/png');
+}
+/* Imagen: código de descuento (estilo cupón) */
+async function genCodePromo(W,H){
+  const code=(DATA.config.codes||[]).find(c=>c.code===M('bcCode').value);
+  if(!code){ toast('Primero crea un código en ⚙ Ajustes'); return; }
+  toast('Generando imagen…');
+  await promoFonts();
+  const {cv,g}=promoBase(W,H);
+  const story=H>1600;
+  await promoLogo(g,W,story?H*0.06:H*0.045);
+  const midY=H*(story?0.44:0.45);
+  // eyebrow
+  g.textAlign='center';
+  g.font='800 '+Math.round(W*0.030)+'px "Montserrat"'; g.fillStyle='#9147FF';
+  try{ g.letterSpacing=Math.round(W*0.008)+'px'; }catch(e){}
+  g.fillText('CÓDIGO DE DESCUENTO', W/2, midY-W*0.24);
+  try{ g.letterSpacing='0px'; }catch(e){}
+  // cupón: marco punteado con el código gigante
+  const tw=W*0.78, th2=W*0.30, tx=(W-tw)/2, ty=midY-W*0.15;
+  g.save();
+  g.strokeStyle='#9147FF'; g.lineWidth=W*0.006;
+  g.setLineDash([W*0.022, W*0.014]);
+  roundPath(g,tx,ty,tw,th2,28); g.stroke();
+  g.restore();
+  g.fillStyle='rgba(145,71,255,.08)';
+  roundPath(g,tx,ty,tw,th2,28); g.fill();
+  let cfs=Math.round(W*0.155);
+  g.font='400 '+cfs+'px "Bebas Neue"';
+  while(g.measureText(code.code).width>tw*0.86 && cfs>Math.round(W*0.07)){ cfs-=4; g.font='400 '+cfs+'px "Bebas Neue"'; }
+  g.fillStyle='#F7F7F8'; g.textBaseline='middle';
+  g.fillText(code.code, W/2, ty+th2/2+W*0.008);
+  g.textBaseline='alphabetic';
+  // beneficio
+  g.font='400 '+Math.round(W*0.085)+'px "Bebas Neue"'; g.fillStyle='#fb3a5d';
+  g.fillText('-'+code.pct+'% EN TU PEDIDO', W/2, ty+th2+W*0.135);
+  // instrucción
+  g.font='600 '+Math.round(W*0.026)+'px "Montserrat"'; g.fillStyle='rgba(247,247,248,.75)';
+  g.fillText('Escríbelo en tu carrito en  '+siteUrlShort(), W/2, ty+th2+W*0.20);
+  promoFooter(g,W,H);
+  downloadPNG(cv,'vexx-codigo-'+code.code.toLowerCase()+(story?'-historia':'-post')+'.png');
+}
+/* Imagen: invitación al catálogo */
+async function genInvitePromo(W,H){
+  toast('Generando imagen…');
+  await promoFonts();
+  const {cv,g}=promoBase(W,H);
+  const story=H>1600;
+  let y=await promoLogo(g,W,story?H*0.06:H*0.04);
+  y+=W*(story?0.17:0.09);
+  g.textAlign='center';
+  // eyebrow
+  g.font='800 '+Math.round(W*0.026)+'px "Montserrat"'; g.fillStyle='#9147FF';
+  try{ g.letterSpacing=Math.round(W*0.009)+'px'; }catch(e){}
+  g.fillText('CATÁLOGO · SUPLEMENTACIÓN DEPORTIVA', W/2, y);
+  try{ g.letterSpacing='0px'; }catch(e){}
+  // titular del hero
+  const hfs=story?0.155:0.13, hgap=W*(story?0.155:0.132);
+  y+=W*(story?0.165:0.14);
+  g.font='400 '+Math.round(W*hfs)+'px "Bebas Neue"';
+  g.fillStyle='#F7F7F8';
+  g.fillText('LO QUE', W/2, y);          y+=hgap;
+  g.fillText('FUNCIONA.', W/2, y);       y+=hgap;
+  g.fillStyle='#9147FF';
+  g.fillText('NADA MÁS.', W/2, y);
+  // datos
+  y+=W*(story?0.16:0.105);
+  const disp=DATA.productos.filter(x=>+x.stock>0 && !x.oculto && !x.drop).length;
+  g.font='600 '+Math.round(W*0.028)+'px "Montserrat"'; g.fillStyle='rgba(247,247,248,.8)';
+  g.fillText('Originales · asesoría real · '+disp+' productos disponibles', W/2, y);
+  // sello -10%
+  y+=W*(story?0.13:0.095);
+  const selloTxt='-10% EN TODO EL CATÁLOGO';
+  g.font='400 '+Math.round(W*0.052)+'px "Bebas Neue"';
+  const sw=g.measureText(selloTxt).width, pad=W*0.035, sh=W*0.085;
+  const sx2=(W-(sw+pad*2))/2, sy2=y-sh*0.72;
+  const sg=g.createLinearGradient(sx2,sy2,sx2,sy2+sh);
+  sg.addColorStop(0,'#fb3a5d'); sg.addColorStop(1,'#E11D48');
+  g.fillStyle=sg;
+  roundPath(g,sx2,sy2,sw+pad*2,sh,16); g.fill();
+  g.fillStyle='#fff';
+  g.fillText(selloTxt, W/2, y);
+  // URL en caja crema, como el botón del sitio
+  y+=W*(story?0.17:0.125);
+  const url=siteUrlShort();
+  g.font='700 '+Math.round(W*0.034)+'px "Montserrat"';
+  const uw=g.measureText(url).width, upad=W*0.045, uh=W*0.105;
+  const ux=(W-(uw+upad*2))/2, uy=y-uh*0.68;
+  g.fillStyle='#F7F7F8';
+  roundPath(g,ux,uy,uw+upad*2,uh,20); g.fill();
+  g.fillStyle='#1A1626';
+  g.fillText(url, W/2, y);
+  promoFooter(g,W,H);
+  downloadPNG(cv,'vexx-catalogo'+(story?'-historia':'-post')+'.png');
+}
+/* Modal de difusión */
+function openBcast(){
+  const sel=M('bcCode'); const codes=DATA.config.codes||[];
+  sel.innerHTML=codes.map(c=>'<option value="'+esc(c.code)+'">'+esc(c.code)+' (-'+c.pct+'%)</option>').join('');
+  sel.disabled=!codes.length;
+  M('bcCodePost').disabled=M('bcCodeStory').disabled=!codes.length;
+  M('bcCodeHint').textContent=codes.length?'':'No tienes códigos activos: créalos en ⚙ Ajustes y vuelve aquí.';
+  M('bcastModal').classList.add('open');
+}
+M('btnDifusion').addEventListener('click',openBcast);
+M('btnPDF').addEventListener('click',()=>{
+  toast('En el diálogo elige "Guardar como PDF" 🖨');
+  setTimeout(()=>window.print(), 400);
+});
+M('bcastCerrar').addEventListener('click',()=>M('bcastModal').classList.remove('open'));
+M('bcCodePost').addEventListener('click',()=>genCodePromo(1080,1350));
+M('bcCodeStory').addEventListener('click',()=>genCodePromo(1080,1920));
+M('bcInvPost').addEventListener('click',()=>genInvitePromo(1080,1350));
+M('bcInvStory').addEventListener('click',()=>genInvitePromo(1080,1920));
 
 /* init dinámico */
 populateBrands();

@@ -297,19 +297,16 @@ body:not(.admin) .oculto-badge{display:none}
 .chk-row label{margin:0;text-transform:none;letter-spacing:0;font-size:13.5px;font-weight:600;color:var(--ink)}
 
 /* ===== Etiquetas · Galería · Reordenar · Solo disponibles ===== */
-/* Listón / corner ribbon anclado a la esquina superior izquierda */
-.ribbon{position:absolute;top:15px;left:-31px;width:120px;transform:rotate(-45deg);background:linear-gradient(180deg,#fb3a5d,#E11D48);color:#fff;font:800 11px/20px 'Montserrat',sans-serif;letter-spacing:.14em;text-align:center;z-index:6;pointer-events:none;box-shadow:0 5px 12px rgba(190,18,60,.42)}
-.ribbon::before,.ribbon::after{content:"";position:absolute;top:100%;border:6px solid #9f1239;z-index:-1}
-.ribbon::before{left:0;border-right-color:transparent;border-bottom-color:transparent}
-.ribbon::after{right:0;border-left-color:transparent;border-bottom-color:transparent}
-.ribbon.r-nuevo{background:linear-gradient(180deg,#22c55e,#16a34a);box-shadow:0 5px 12px rgba(22,163,74,.42)}
-.ribbon.r-nuevo::before,.ribbon.r-nuevo::after{border-color:#14532d}
-.ribbon.r-nuevo::before{border-right-color:transparent;border-bottom-color:transparent}
-.ribbon.r-nuevo::after{border-left-color:transparent;border-bottom-color:transparent}
-.ribbon.r-top{background:linear-gradient(180deg,var(--lila),var(--morado));box-shadow:0 5px 12px rgba(92,22,197,.45)}
-.ribbon.r-top::before,.ribbon.r-top::after{border-color:#3b0a78}
-.ribbon.r-top::before{border-right-color:transparent;border-bottom-color:transparent}
-.ribbon.r-top::after{border-left-color:transparent;border-bottom-color:transparent}
+/* Listón / corner ribbon (SVG): banda ancha con extremos cortados paralelos
+   a los bordes de la foto — misma geometría que el de las imágenes de IG */
+.ribbon{position:absolute;top:0;left:0;width:38%;height:auto;transform:translate(-7.9%,-7.9%);z-index:6;pointer-events:none;overflow:visible;filter:drop-shadow(0 3px 5px rgba(26,22,38,.35))}
+.ribbon .rib-band{fill:url(#ribGradOferta)}
+.ribbon .rib-fold{fill:#9f1239}
+.ribbon.r-nuevo .rib-band{fill:url(#ribGradNuevo)}
+.ribbon.r-nuevo .rib-fold{fill:#14532d}
+.ribbon.r-top .rib-band{fill:url(#ribGradTop)}
+.ribbon.r-top .rib-fold{fill:#3b0a78}
+.ribbon text{fill:#fff;font:800 4.6px 'Montserrat',sans-serif;letter-spacing:.6px;text-anchor:middle;dominant-baseline:central}
 .mv-btns{display:none;position:absolute;top:48px;right:10px;z-index:5;gap:4px}
 body.admin .mv-btns{display:flex}
 .mv-btns button{width:34px;height:30px;border:none;border-radius:8px;background:rgba(26,22,38,.75);color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:'Montserrat';line-height:1}
@@ -383,6 +380,13 @@ body:not(.admin) .proximo-badge{display:none}
 </style>
 </head>
 <body class="">
+
+<!-- degradados compartidos de los listones -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="ribGradOferta" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb3a5d"></stop><stop offset="1" stop-color="#E11D48"></stop></linearGradient>
+<linearGradient id="ribGradNuevo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22c55e"></stop><stop offset="1" stop-color="#16a34a"></stop></linearGradient>
+<linearGradient id="ribGradTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9147FF"></stop><stop offset="1" stop-color="#5C16C5"></stop></linearGradient>
+</defs></svg>
 
 <div id="adminBar" style="display: none;"><b>MODO ADMIN</b>
   <button id="btnAgregar2">+ Producto</button>
@@ -620,7 +624,7 @@ body:not(.admin) .proximo-badge{display:none}
 <div id="promoModal" class="">
   <div class="modal-box">
     <h3>Imagen para Instagram</h3>
-    <p class="field-hint" id="promoProd" style="margin-bottom:4px">Producto: Proteína Whey Chocolate 5lb</p>
+    <p class="field-hint" id="promoProd" style="margin-bottom:4px">Producto: Proteína Whey Vainilla 5lb</p>
     <p class="field-hint" style="margin-bottom:10px">Genera un PNG con tu marca, listo para subir: foto, nombre, precio y tu @.</p>
     <div class="modal-actions" style="margin-top:6px">
       <button id="promoPost">⬇ Post (4:5)</button>
@@ -715,7 +719,7 @@ body:not(.admin) .proximo-badge{display:none}
   </div>
 </aside>
 
-<div id="toast" class="">✅ Listo: 483 KB → 476 KB (1% menos) · recuerda Publicar</div>
+<div id="toast" class="">En el diálogo elige "Guardar como PDF" 🖨</div>
 
 <script>
 let DATA = JSON.parse(document.getElementById('vexx-data').textContent);
@@ -789,7 +793,7 @@ function render(){
       + `<button class="fav-btn ${FAVS.has(p.id)?'on':''}" data-fav="${p.id}" title="Favorito" aria-label="Marcar como favorito">♥</button>`;
     const ocultoBadge = p.oculto ? '<span class="oculto-badge">Oculto</span>' : (p.drop ? '<span class="proximo-badge">Próximo</span>' : '');
     const et = effTag(p);
-    const ribbon = et ? `<div class="ribbon r-${et}">${ribbonLabel(et)}</div>` : '';
+    const ribbon = et ? ribbonSVG(et) : '';
     const overlay = (agotado && !p.drop) ? '<div class="agotado-overlay"><span>AGOTADO</span></div>' : '';
     const media = p.img
       ? `<div class="ph-media" data-qv="${p.id}">${shareBtn}${ocultoBadge}<img src="${p.img}"${imgStyle} alt="${p.nombre}" loading="lazy" onerror="this.parentNode.innerHTML='<div class=&quot;ph-placeholder ph-media&quot;><span class=&quot;ph-soon&quot;>Foto próximamente</span></div>'">${overlay}</div>`
@@ -889,6 +893,15 @@ function notifyMe(id){
 function comboName(id){ const p=DATA.productos.find(x=>x.id===id); return p?p.nombre:''; }
 function tagLabel(t){ return {nuevo:'Nuevo', oferta:'Oferta', top:'Más vendido'}[t]||''; }
 function ribbonLabel(t){ return {nuevo:'NUEVO', oferta:'OFERTA', top:'TOP'}[t]||''; }
+/* Listón SVG: banda con cortes paralelos a los bordes + dobleces (1 unidad = 1% del ancho de la foto) */
+function ribbonSVG(et){
+  return '<svg class="ribbon r-'+et+'" viewBox="-3 -3 38 38" aria-hidden="true">'
+    +'<polygon class="rib-fold" points="-2.1,31.7 0.4,29.1 0.4,34.2"></polygon>'
+    +'<polygon class="rib-fold" points="31.7,-2.1 29.1,0.4 34.2,0.4"></polygon>'
+    +'<polygon class="rib-band" points="-2.1,14.7 14.7,-2.1 31.7,-2.1 -2.1,31.7"></polygon>'
+    +'<text x="10.5" y="10.6" transform="rotate(-45 10.5 10.5)">'+ribbonLabel(et)+'</text>'
+    +'</svg>';
+}
 /* Etiqueta efectiva: manual > "Nuevo" automático (14 días) > "Oferta" si hay descuento */
 function effTag(p){
   if(p.tag) return p.tag;
@@ -1685,7 +1698,7 @@ function renderQvMedia(p){
     h+='<div class="qv-dots">'+qvPhotos.map((_,i)=>'<span class="'+(i===qvIdx?'on':'')+'"></span>').join('')+'</div>';
   }
   const qet=effTag(p);
-  if(qet) h+='<div class="ribbon r-'+qet+'">'+ribbonLabel(qet)+'</div>';
+  if(qet) h+=ribbonSVG(qet);
   if(agotado && !p.drop) h+='<div class="agotado-overlay"><span>AGOTADO</span></div>';
   M('qvMedia').innerHTML=h;
   if(qvPhotos.length>1){
@@ -1910,17 +1923,17 @@ async function genPromo(W,H){
   const story=H>1600;
   /* layout de flujo: cursor vertical + espacio reservado para texto y pie,
      así nada se encima en 4:5 ni en 9:16 */
-  let y = story? H*0.045 : H*0.03;
+  let y = story? H*0.05 : H*0.025;
   // logo arriba
   try{
     const logo=await loadImg(document.getElementById('logoTop').src);
-    const lw=W*0.19, lh=lw*logo.height/logo.width;
+    const lw=W*(story?0.19:0.17), lh=lw*logo.height/logo.width;
     g.drawImage(logo,(W-lw)/2, y, lw, lh);
-    y += lh + W*0.035;
+    y += lh + W*(story?0.035:0.03);
   }catch(e){ y += W*0.06; }
-  // foto: usa el espacio que sobre tras reservar texto (0.42W) y pie (0.10H)
-  const textNeed=W*0.42, footerH=H*0.10;
-  const fw=Math.max(W*0.40, Math.min(W*0.78, H-footerH-y-textNeed));
+  // foto protagonista: usa el espacio que sobre tras reservar texto y pie
+  const textNeed=W*0.36, footerH=H*0.10;
+  const fw=Math.max(W*0.40, Math.min(W*0.86, H-footerH-y-textNeed));
   const fx=(W-fw)/2, fy=y;
   if(p.img){
     try{
@@ -1951,37 +1964,31 @@ async function genPromo(W,H){
   g.font='600 '+Math.round(W*0.028)+'px "Montserrat"';
   g.fillStyle='rgba(247,247,248,.75)';
   g.fillText((p.marca||'')+(p.sabor?'  ·  '+p.sabor:''), W/2, y);
-  y += W*0.082;
-  // línea "-10% · Ahorras $Y" (el precio viejo solo va abajo, tachado)
+  y += W*0.075;
+  // "-10%" solo, en rojo y destacado
   if(p.pct>0){
-    const ahorro=p.precio-finalPrice(p);
-    g.font='600 '+Math.round(W*0.030)+'px "Montserrat"';
-    g.textBaseline='alphabetic';
-    const s1='-'+p.pct+'%   ·   ', s2='Ahorras '+money(ahorro);
-    const w1=g.measureText(s1).width, w2=g.measureText(s2).width, sx=(W-(w1+w2))/2;
-    g.textAlign='left';
-    g.fillStyle='rgba(247,247,248,.62)'; g.fillText(s1, sx, y);
-    g.fillStyle='#fb3a5d'; g.fillText(s2, sx+w1, y);
-    g.textAlign='center';
-    y += W*0.10;
+    g.font='800 '+Math.round(W*0.044)+'px "Montserrat"';
+    g.fillStyle='#FF3B5C'; g.textAlign='center'; g.textBaseline='alphabetic';
+    g.fillText('-'+p.pct+'%', W/2, y);
+    y += W*0.105;
   } else { y += W*0.02; }
-  // precios grandes: viejo tachado en rojo + nuevo al lado, más grande y en lila
+  // precios grandes: viejo en gris claro elegante con tachado blanco + nuevo en lila
   if(p.pct>0){
     const oldTxt=money(p.precio), newTxt=money(finalPrice(p));
-    const oldFs=Math.round(W*0.085), newFs=Math.round(W*0.13);
+    const oldFs=Math.round(W*0.080), newFs=Math.round(W*0.13);
     g.font='400 '+oldFs+'px "Bebas Neue"'; const ow=g.measureText(oldTxt).width;
     g.font='400 '+newFs+'px "Bebas Neue"'; const nw=g.measureText(newTxt).width;
     const gap=W*0.05; let x=(W-(ow+gap+nw))/2;
-    // precio viejo
+    // precio viejo: gris claro, discreto pero legible
     g.textAlign='left';
     g.font='400 '+oldFs+'px "Bebas Neue"';
-    g.fillStyle='rgba(247,247,248,.55)';
+    g.fillStyle='#A9A4B5';
     g.fillText(oldTxt, x, y);
-    // tachón rojo diagonal, grueso y con puntas redondeadas
-    g.strokeStyle='#FF3B5C'; g.lineWidth=W*0.013; g.lineCap='round';
+    // tachado blanco, limpio, con inclinación ligera
+    g.strokeStyle='#F7F7F8'; g.lineWidth=W*0.007; g.lineCap='round';
     g.beginPath();
-    g.moveTo(x-W*0.012, y-oldFs*0.08);
-    g.lineTo(x+ow+W*0.012, y-oldFs*0.62);
+    g.moveTo(x-W*0.010, y-oldFs*0.24);
+    g.lineTo(x+ow+W*0.010, y-oldFs*0.46);
     g.stroke();
     // precio nuevo, protagonista
     g.font='400 '+newFs+'px "Bebas Neue"';

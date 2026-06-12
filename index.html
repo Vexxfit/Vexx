@@ -143,7 +143,7 @@ body.admin .card .edit-btn{display:block}
 @media print{
   #adminBar,.hero,#promoBar,.drops,.controls,.filters,.result-count,#cartFab,#cartPanel,#cartBackdrop,.foot,#toast,
   .card-share,.fav-btn,.edit-btn,.mv-btns,.promo-btn,.card-cta,.oculto-badge,.proximo-badge,#topBtn,.pager,
-  #editModal,#cfgModal,#draftsModal,#promoModal,#bcastModal,#repliesModal,#qvModal,#pdfModal{display:none!important}
+  #editModal,#cfgModal,#draftsModal,#promoModal,#bcastModal,#repliesModal,#qvModal,#pdfModal,#dropsPage{display:none!important}
   body{background:#fff}
   #printHeader{display:block;text-align:center;padding:18px 0 4px;font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:.04em;color:#1A1626}
   #printHeader small{display:block;font-family:'Montserrat';font-size:12px;font-weight:600;letter-spacing:.02em;color:#6b6577;margin-top:2px}
@@ -249,7 +249,11 @@ button.card-cta{width:100%;border:none;cursor:pointer;font-family:'Montserrat'}
 /* ===== Compartir · Vista rápida · Combos · Ocultos ===== */
 .c-combo{background:linear-gradient(135deg,var(--morado),var(--lila));color:#fff}
 .card-incluye{font-size:11.5px;color:var(--morado-prof);font-weight:600;margin-top:8px;line-height:1.45}
-.card-share{position:absolute;top:52px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:var(--morado);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:.18s;box-shadow:0 2px 8px rgba(26,22,38,.14)}
+.card-share{position:absolute;top:94px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:var(--morado);cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:.18s;box-shadow:0 2px 8px rgba(26,22,38,.14)}
+.pin-btn{position:absolute;top:52px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.9);font-size:15px;line-height:1;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(26,22,38,.14);transition:.18s;filter:grayscale(1);opacity:.75}
+.pin-btn.on{filter:none;opacity:1;background:#fff}
+.pin-btn:hover{transform:scale(1.1)}
+body.admin .pin-btn{display:none}
 .fav-btn{position:absolute;top:10px;right:10px;z-index:4;width:34px;height:34px;border-radius:50%;border:none;background:rgba(255,255,255,.9);color:#cfccd6;font-size:17px;line-height:1;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(26,22,38,.14);transition:.18s}
 .fav-btn.on{color:#E11D48}
 .fav-btn:hover{transform:scale(1.1)}
@@ -267,8 +271,6 @@ body.admin .fav-btn{display:none}
 /* próxima llegada */
 .restock-note{font-size:11.5px;font-weight:700;color:var(--morado-prof);margin-top:8px}
 /* fijar (admin) */
-.mv-btns .pin-b{opacity:.55}
-.mv-btns .pin-b.on{opacity:1;background:var(--morado)}
 /* paginación */
 .pager{display:flex;justify-content:center;gap:7px;padding:4px 24px 36px;flex-wrap:wrap}
 .pager:empty{display:none}
@@ -383,6 +385,85 @@ body.admin .promo-btn{display:block}
 .proximo-badge{position:absolute;top:10px;left:50%;transform:translateX(-50%) rotate(-4deg);z-index:5;background:#E11D48;color:#fff;font-size:10px;font-weight:700;letter-spacing:.12em;padding:4px 11px;border-radius:999px;text-transform:uppercase}
 body:not(.admin) .proximo-badge{display:none}
 
+/* ===== Página de Drops: cajas cayendo del cielo ===== */
+.drops-tab{border-color:rgba(225,29,72,.45)!important;color:#E11D48!important}
+.drops-tab:hover{border-color:#E11D48!important}
+#dropsPage{display:none;position:fixed;inset:0;z-index:95;background:#140f1e;overflow:hidden}
+#dropsPage.open{display:block}
+#dropsPage::before{content:"";position:absolute;inset:0;pointer-events:none;background:
+  radial-gradient(1.6px 1.6px at 12% 18%,rgba(247,247,248,.65),transparent 100%),
+  radial-gradient(1.2px 1.2px at 28% 9%,rgba(247,247,248,.45),transparent 100%),
+  radial-gradient(1.8px 1.8px at 45% 22%,rgba(247,247,248,.5),transparent 100%),
+  radial-gradient(1.2px 1.2px at 63% 12%,rgba(247,247,248,.55),transparent 100%),
+  radial-gradient(1.6px 1.6px at 78% 25%,rgba(247,247,248,.4),transparent 100%),
+  radial-gradient(1.2px 1.2px at 90% 15%,rgba(247,247,248,.6),transparent 100%),
+  radial-gradient(1.4px 1.4px at 36% 40%,rgba(247,247,248,.3),transparent 100%),
+  radial-gradient(1.4px 1.4px at 70% 45%,rgba(247,247,248,.3),transparent 100%),
+  radial-gradient(120% 80% at 85% -10%,rgba(145,71,255,.28),transparent 55%),
+  radial-gradient(90% 70% at 5% 110%,rgba(92,22,197,.35),transparent 60%)}
+#dropsPage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:16%;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(92,22,197,.22))}
+.dp-close{position:absolute;top:16px;right:16px;z-index:6;width:42px;height:42px;border:1px solid rgba(247,247,248,.25);border-radius:50%;background:rgba(247,247,248,.1);color:var(--crema);font-size:20px;cursor:pointer;line-height:1}
+.dp-close:hover{background:rgba(247,247,248,.2)}
+.dp-head{position:relative;z-index:3;text-align:center;padding:34px 20px 0;color:var(--crema);pointer-events:none}
+.dp-eyebrow{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--lila)}
+.dp-title{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:clamp(44px,9vw,84px);line-height:.95;margin-top:6px}
+.dp-sub{font-size:13px;color:rgba(247,247,248,.65);margin-top:8px}
+.dp-count{display:inline-block;margin-top:14px;font-family:'Bebas Neue';font-size:19px;letter-spacing:.06em;color:#fff;background:linear-gradient(90deg,#E11D48,var(--lila));padding:8px 18px;border-radius:999px}
+#dropsBoxes{position:relative;z-index:2;height:calc(100vh - 158px);overflow-y:auto;overflow-x:hidden;padding:4px 14px 34px}
+/* escenario: cajas de fondo con paracaídas + caja central bajo reflector */
+.dp-stage{position:relative;height:310px;max-width:920px;margin:0 auto}
+.para-crate{position:absolute;animation:paraFall 1.6s cubic-bezier(.45,0,.55,1) var(--d) both;opacity:.85}
+.para-crate .inner{animation:paraFloat 4.4s calc(var(--d) + 1.6s) ease-in-out infinite}
+.para-crate svg{display:block;width:100%;height:auto}
+@keyframes paraFall{0%{transform:translateY(-75vh)}100%{transform:translateY(0)}}
+@keyframes paraFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.dp-spot{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);width:min(430px,82vw);height:44vh;max-height:340px;pointer-events:none;background:linear-gradient(180deg,rgba(145,71,255,.02),rgba(145,71,255,.16));clip-path:polygon(40% 0,60% 0,100% 100%,0% 100%);z-index:1}
+.dp-center{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);width:min(300px,58vw);cursor:pointer;border:none;background:none;padding:0;z-index:3;transition:transform .55s cubic-bezier(.32,1.45,.45,1)}
+.dp-center svg{display:block;width:100%;height:auto;filter:drop-shadow(0 16px 22px rgba(0,0,0,.55))}
+.dp-center:hover{transform:translateX(-50%) translateY(-7px)}
+.dp-center.up{transform:translateX(-50%) translateY(-34px)}
+.dp-glow{position:absolute;left:8%;right:8%;bottom:-10px;height:26px;background:radial-gradient(50% 100% at 50% 50%,rgba(145,71,255,.6),transparent 70%);filter:blur(9px);opacity:.45;transition:.55s;pointer-events:none}
+.dp-center.up .dp-glow{opacity:1}
+.dp-fog{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);width:120%;height:64px;background:radial-gradient(50% 100% at 50% 100%,rgba(247,247,248,.10),transparent 70%);filter:blur(11px);pointer-events:none;z-index:4}
+.dp-tap{position:absolute;left:50%;bottom:-30px;transform:translateX(-50%);font:800 9.5px 'Montserrat';letter-spacing:.26em;color:rgba(247,247,248,.55);z-index:5;animation:paraFloat 2.4s ease-in-out infinite;white-space:nowrap}
+/* panel PRÓXIMO DROP */
+#nextPanel{max-width:880px;margin:20px auto 0;display:none;background:rgba(18,13,28,.78);border:1px solid rgba(145,71,255,.28);border-radius:18px;padding:16px 22px}
+#nextPanel.show{display:flex;align-items:center;gap:18px;flex-wrap:wrap;animation:panelIn .5s ease}
+@keyframes panelIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.np-img{width:86px;height:86px;border-radius:14px;object-fit:cover;background:#0e0a16;flex:0 0 auto}
+.np-info{flex:1;min-width:170px;color:var(--crema)}
+.np-eyebrow{font-size:10.5px;font-weight:800;letter-spacing:.24em;color:var(--lila)}
+.np-name{font-family:'Bebas Neue';font-size:30px;line-height:1;margin-top:4px}
+.np-meta{font-size:12px;font-weight:700;color:var(--lila);margin-top:4px;text-transform:uppercase;letter-spacing:.04em}
+.np-date{display:inline-block;margin-top:9px;font-size:11.5px;font-weight:700;color:var(--crema);border:1px solid rgba(247,247,248,.28);border-radius:8px;padding:4px 10px}
+.np-cd{display:flex;gap:16px;margin-left:auto;padding:4px 2px}
+.np-cd .b{text-align:center;color:var(--crema);min-width:44px}
+.np-cd .n{font-family:'Bebas Neue';font-size:40px;color:var(--lila);line-height:1}
+.np-cd .l{font-size:9.5px;font-weight:800;letter-spacing:.2em;color:rgba(247,247,248,.6);margin-top:3px}
+.np-ver{border:none;background:var(--morado);color:#fff;font:800 11px 'Montserrat';letter-spacing:.12em;padding:11px 16px;border-radius:10px;cursor:pointer;flex:0 0 auto}
+.np-ver:hover{background:var(--lila)}
+/* DROPS DISPONIBLES */
+.dp-avail{max-width:980px;margin:28px auto 0}
+.dp-avail-h{display:flex;align-items:center;gap:14px;color:rgba(247,247,248,.85);font:800 12px 'Montserrat';letter-spacing:.26em}
+.dp-avail-h::before,.dp-avail-h::after{content:"";flex:1;height:1px;background:rgba(247,247,248,.16)}
+.dp-row{display:flex;gap:14px;overflow-x:auto;padding:16px 2px 8px;-webkit-overflow-scrolling:touch}
+.dcard{flex:0 0 172px;background:rgba(18,13,28,.74);border:1px solid rgba(145,71,255,.22);border-radius:16px;padding:12px;text-align:center;color:var(--crema)}
+.dcard.closed{cursor:pointer;transition:.2s}
+.dcard.closed:hover{border-color:rgba(145,71,255,.55);transform:translateY(-3px)}
+.dc-media{height:112px;display:flex;align-items:center;justify-content:center;position:relative}
+.dc-media img{max-width:100%;max-height:112px;border-radius:10px;object-fit:cover}
+.dc-media .crate-mini{width:128px}
+.nuevo-chip{position:absolute;top:0;left:0;background:var(--lila);color:#fff;font:800 9px 'Montserrat';letter-spacing:.14em;padding:3px 8px;border-radius:6px;z-index:2}
+.dc-name{font:700 12.5px 'Montserrat';margin-top:9px;line-height:1.3;min-height:16px}
+.dc-meta{font:700 10.5px 'Montserrat';color:var(--lila);margin-top:2px;text-transform:uppercase}
+.dc-date{font:700 10.5px 'Montserrat';color:rgba(247,247,248,.6);margin-top:5px}
+.dc-btn{margin-top:10px;width:100%;border:1px solid rgba(247,247,248,.3);background:transparent;color:var(--crema);font:800 10px 'Montserrat';letter-spacing:.16em;padding:8px;border-radius:9px;cursor:pointer}
+.dc-btn:hover{background:rgba(247,247,248,.12)}
+.dcard.opening .crate-mini{animation:dboxShake .48s ease-in-out}
+@keyframes dboxShake{0%,100%{transform:rotate(0) scale(1)}25%{transform:rotate(-6deg) scale(1.07)}55%{transform:rotate(5deg) scale(1.12)}80%{transform:rotate(-3deg) scale(1.05)}}
+@media(max-width:680px){.np-cd{margin-left:0;width:100%;justify-content:center}.dp-stage{height:250px}}
+@media(prefers-reduced-motion:reduce){.para-crate,.para-crate .inner,.dp-tap{animation:none!important}}
+
 /* ===== Plantillas de respuesta DM (admin) ===== */
 #repliesModal{display:none;position:fixed;inset:0;z-index:100;background:rgba(26,22,38,.6);align-items:center;justify-content:center;padding:18px}
 #repliesModal.open{display:flex}
@@ -414,6 +495,7 @@ body:not(.admin) .proximo-badge{display:none}
 <linearGradient id="ribGradOferta" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fb3a5d"></stop><stop offset="1" stop-color="#E11D48"></stop></linearGradient>
 <linearGradient id="ribGradNuevo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22c55e"></stop><stop offset="1" stop-color="#16a34a"></stop></linearGradient>
 <linearGradient id="ribGradTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9147FF"></stop><stop offset="1" stop-color="#5C16C5"></stop></linearGradient>
+<linearGradient id="crateSheen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(247,247,248,.12)"></stop><stop offset="1" stop-color="rgba(247,247,248,0)"></stop></linearGradient>
 </defs></svg>
 
 <div id="adminBar" style="display: none;"><b>MODO ADMIN</b>
@@ -457,11 +539,22 @@ body:not(.admin) .proximo-badge{display:none}
         <p class="drops-eyebrow">🔥 Próximamente</p>
         <h2 class="drops-h">LLEGANDO PRONTO</h2>
       </div>
-      <button id="dropsShare" class="drops-share">↗ Compartir teaser</button>
+      <span><button id="dropsOpen" class="drops-share">🎁 Ver drops</button> <button id="dropsShare" class="drops-share">↗ Compartir teaser</button></span>
     </div>
     <div class="drops-row" id="dropsRow"></div>
   </div>
 </section>
+
+<!-- ===== PÁGINA DE DROPS: cajas cayendo del cielo ===== -->
+<div id="dropsPage" role="dialog" aria-label="Drops">
+  <button class="dp-close" id="dpClose" aria-label="Cerrar">×</button>
+  <div class="dp-head">
+    <p class="dp-eyebrow">D R O P S</p>
+    <h2 class="dp-title">LO QUE VIENE</h2>
+    <p class="dp-sub">Nuevos productos · Ediciones limitadas<br>Toca una caja para descubrir qué llega 👀</p>
+  </div>
+  <div id="dropsBoxes"></div>
+</div>
 
 <div id="printHeader">VEXX · CATÁLOGO DE SUPLEMENTOS<small>@vexx.fit · Querétaro y Salamanca — pide por DM</small><small id="printDate"></small></div>
 
@@ -499,6 +592,7 @@ body:not(.admin) .proximo-badge{display:none}
     <button class="fbtn" data-f="Creatina">Creatina</button>
     <button class="fbtn" data-f="Pre-Workout">Pre-Workout</button>
     <button class="fbtn" data-f="Paquete">Paquetes</button>
+    <button id="dropsTab" class="fbtn drops-tab" type="button" style="display:none">🔥 Drops</button>
   </div>
 </section>
 
@@ -743,17 +837,17 @@ body:not(.admin) .proximo-badge{display:none}
     <button class="qv-close" id="qvClose" aria-label="Cerrar">×</button>
     <div class="qv-media" id="qvMedia"></div>
     <div class="qv-body">
-      <span class="qv-pill c-prot" id="qvPill">Proteína</span>
-      <h3 class="qv-name" id="qvName">Proteína Whey Chocolate 5lb</h3>
-      <p class="qv-meta" id="qvMeta">Optimum Nutrition · Double Rich Chocolate</p>
+      <span class="qv-pill c-crea" id="qvPill">Creatina</span>
+      <h3 class="qv-name" id="qvName">Creatine Monohydrate 1kg</h3>
+      <p class="qv-meta" id="qvMeta">Dragon Pharma · Sin sabor</p>
       <div id="qvSabores"></div>
-      <p class="qv-desc" id="qvDesc">74 porciones · 24g proteína por servicio</p>
+      <p class="qv-desc" id="qvDesc">Monohidrato puro · ~200 porciones</p>
       <div id="qvRestock"></div>
       <div id="qvIncluye"></div>
       <div class="qv-price" id="qvPrice"></div>
       <div id="qvRelated"></div>
       <div class="qv-actions">
-        <button id="qvAdd">Agregar a mis piezas</button>
+        <button id="qvAdd">🔔 Avísame cuando llegue</button>
         <button id="qvShare" title="Compartir">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
           Compartir
@@ -840,11 +934,22 @@ function toggleFav(id){
   try{ localStorage.setItem(LS_FAVS, JSON.stringify([...FAVS])); }catch(e){}
   render();
 }
+/* Fijados del cliente: sus productos fijados aparecen primero (solo en su dispositivo) */
+const LS_PINS='vexx_pins';
+let PINS=new Set();
+try{ PINS=new Set(JSON.parse(localStorage.getItem(LS_PINS)||'[]')); }catch(e){}
+function togglePin(id){
+  const was=PINS.has(id);
+  if(was) PINS.delete(id); else PINS.add(id);
+  try{ localStorage.setItem(LS_PINS, JSON.stringify([...PINS])); }catch(e){}
+  render();
+  toast(was?'Producto sin fijar':'📌 Fijado al inicio para ti');
+}
 let editIdx = null;
 
 /* Comparadores de ordenamiento */
 const sorters = {
-  def:(a,b)=>(((b.p.pin?1:0)-(a.p.pin?1:0)) || ((+b.p.stock>0)-(+a.p.stock>0)) || (a.i-b.i)),
+  def:(a,b)=>(((PINS.has(b.p.id)?1:0)-(PINS.has(a.p.id)?1:0)) || ((+b.p.stock>0)-(+a.p.stock>0)) || (a.i-b.i)),
   'price-asc':(a,b)=>finalPrice(a.p)-finalPrice(b.p),
   'price-desc':(a,b)=>finalPrice(b.p)-finalPrice(a.p),
   'name-asc':(a,b)=>(a.p.nombre||'').localeCompare(b.p.nombre||'','es'),
@@ -907,7 +1012,8 @@ function render(){
     const it = p.imgT;
     const imgStyle = it ? ` style="transform:translate(${it.x}%,${it.y}%) scale(${it.z})"` : '';
     const shareBtn = `<button class="card-share" data-share="${p.id}" title="Compartir" aria-label="Compartir producto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg></button>`
-      + `<button class="fav-btn ${FAVS.has(p.id)?'on':''}" data-fav="${p.id}" title="Favorito" aria-label="Marcar como favorito">♥</button>`;
+      + `<button class="fav-btn ${FAVS.has(p.id)?'on':''}" data-fav="${p.id}" title="Favorito" aria-label="Marcar como favorito">♥</button>`
+      + `<button class="pin-btn ${PINS.has(p.id)?'on':''}" data-pin="${p.id}" title="${PINS.has(p.id)?'Quitar de arriba':'Fijar arriba (solo tú lo ves así)'}" aria-label="Fijar producto al inicio">📌</button>`;
     const ocultoBadge = p.oculto ? '<span class="oculto-badge">Oculto</span>' : (p.drop ? '<span class="proximo-badge">Próximo</span>' : '');
     const ribbon = effTags(p).map((t,ix)=>ribbonSVG(t,ix)).join('');
     const overlay = (agotado && !p.drop) ? '<div class="agotado-overlay"><span>AGOTADO</span></div>' : '';
@@ -932,7 +1038,7 @@ function render(){
     const incluyeLine = (p.incluye&&p.incluye.length) ? `<p class="card-incluye">🎁 Incluye: ${p.incluye.map(comboName).filter(Boolean).join(' · ')}</p>` : '';
     card.innerHTML = `
       <button class="edit-btn" data-i="${i}">✎ Editar</button>
-      <div class="mv-btns"><button data-mv="-1" data-i="${i}" title="Mover antes">‹</button><button data-mv="1" data-i="${i}" title="Mover después">›</button><button class="pin-b${p.pin?' on':''}" data-pinbtn="${i}" title="${p.pin?'Quitar fijado':'Fijar al inicio'}">📌</button></div>
+      <div class="mv-btns"><button data-mv="-1" data-i="${i}" title="Mover antes">‹</button><button data-mv="1" data-i="${i}" title="Mover después">›</button></div>
       <button class="promo-btn" data-promo="${p.id}" title="Generar imagen para Instagram">📣 IG</button>
       ${ribbon}
       ${media}
@@ -969,12 +1075,7 @@ function render(){
   document.querySelectorAll('[data-share]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); shareProduct(b.dataset.share); }));
   document.querySelectorAll('[data-fav]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); toggleFav(b.dataset.fav); }));
   document.querySelectorAll('.mv-btns button[data-mv]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); moveProd(+b.dataset.i, +b.dataset.mv); }));
-  document.querySelectorAll('[data-pinbtn]').forEach(b=>b.addEventListener('click',e=>{
-    e.stopPropagation();
-    const p=DATA.productos[+b.dataset.pinbtn]; if(!p) return;
-    p.pin=!p.pin; if(!p.pin) delete p.pin;
-    render(); toast(p.pin?'📌 Fijado al inicio · recuerda Publicar':'Producto sin fijar');
-  }));
+  document.querySelectorAll('[data-pin]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); togglePin(b.dataset.pin); }));
   document.querySelectorAll('[data-sab]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); openQuickView(b.dataset.sab); }));
   document.querySelectorAll('[data-promo]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); openPromo(b.dataset.promo); }));
   renderPager(totalPages);
@@ -999,6 +1100,7 @@ function renderDrops(){
   const drops=DATA.productos.filter(p=>p.drop && !p.oculto);
   const on=!!DATA.config.drops && drops.length>0;
   sec.classList.toggle('on',on);
+  document.getElementById('dropsTab').style.display = on ? '' : 'none';
   if(!on){ row.innerHTML=''; return; }
   row.innerHTML=drops.map(p=>{
     const media=p.img ? '<img src="'+p.img+'" alt="'+esc(p.nombre)+'" loading="lazy">' : '';
@@ -1011,6 +1113,142 @@ document.getElementById('dropsShare').addEventListener('click',()=>{
   if(navigator.share) navigator.share({title:'VEXX — Próximamente', text:'Mira lo que viene en VEXX 👀', url}).catch(()=>{});
   else copyText(url).then(ok=>toast(ok?'Enlace copiado ✓ Compártelo en tus historias':'No se pudo copiar'));
 });
+
+/* ===== Página de Drops: cajas cayendo del cielo ===== */
+function dropsList(){ return DATA.productos.filter(p=>p.drop && !p.oculto); }
+/* cajas que el cliente ya abrió (recordadas en su navegador) */
+const LS_OPENED='vexx_drops_open';
+let OPENED=new Set();
+try{ OPENED=new Set(JSON.parse(localStorage.getItem(LS_OPENED)||'[]')); }catch(e){}
+function saveOpened(){ try{ localStorage.setItem(LS_OPENED, JSON.stringify([...OPENED])); }catch(e){} }
+/* caja VEXX negra estilo case militar; con o sin paracaídas */
+function crateSVG(chute, mini){
+  const y0=chute?122:4, vh=chute?260:134;
+  let h='<svg class="'+(mini?'crate-mini':'crate')+'" viewBox="0 0 200 '+vh+'" aria-hidden="true">';
+  if(chute){
+    h+='<g><path d="M30,88 Q100,-28 170,88 Q135,72 100,86 Q65,72 30,88 Z" fill="#241d33" stroke="#3a3150" stroke-width="2"></path>'
+      +'<line x1="34" y1="88" x2="80" y2="142" stroke="rgba(247,247,248,.28)" stroke-width="1.8"></line>'
+      +'<line x1="100" y1="84" x2="100" y2="142" stroke="rgba(247,247,248,.28)" stroke-width="1.8"></line>'
+      +'<line x1="166" y1="88" x2="120" y2="142" stroke="rgba(247,247,248,.28)" stroke-width="1.8"></line></g>';
+  }
+  h+='<g transform="translate(0,'+y0+')">'
+    +'<rect x="6" y="2" width="188" height="118" rx="12" fill="#16121f" stroke="#2e2740" stroke-width="2"></rect>'
+    +'<rect x="6" y="2" width="188" height="36" rx="12" fill="#1e1929"></rect>'
+    +'<rect x="6" y="26" width="188" height="12" fill="#1e1929"></rect>'
+    +'<rect x="6" y="2" width="188" height="26" rx="12" fill="url(#crateSheen)"></rect>'
+    +'<path d="M8,40 h184" stroke="#0b0812" stroke-width="3"></path>'
+    +'<rect x="6" y="2" width="16" height="24" rx="5" fill="#2a2336"></rect>'
+    +'<rect x="178" y="2" width="16" height="24" rx="5" fill="#2a2336"></rect>'
+    +'<rect x="6" y="96" width="16" height="24" rx="5" fill="#2a2336"></rect>'
+    +'<rect x="178" y="96" width="16" height="24" rx="5" fill="#2a2336"></rect>'
+    +'<rect x="44" y="32" width="15" height="17" rx="3" fill="#3a3150"></rect>'
+    +'<rect x="141" y="32" width="15" height="17" rx="3" fill="#3a3150"></rect>'
+    +'<text x="100" y="93" text-anchor="middle" font-family="\'Bebas Neue\',sans-serif" font-size="34" letter-spacing="7" fill="#8d87a0">VEXX</text>'
+    +'</g></svg>';
+  return h;
+}
+function nextDrop(){
+  const ds=dropsList(); if(!ds.length) return null;
+  const fut=ds.filter(p=>p.restock && p.restock>Date.now()).sort((a,b)=>a.restock-b.restock);
+  return fut[0]||ds[0];
+}
+function dropDateTxt(p){ return (p.restock && p.restock>Date.now()-86400000) ? fmtDateShort(p.restock) : 'Por anunciar'; }
+function openDropsPage(){
+  if(!dropsList().length){ toast('No hay drops por ahora'); return; }
+  const box=M('dropsBoxes');
+  // cajas de fondo con paracaídas: caen y se quedan flotando
+  const paras=[{x:4,y:8,w:96,d:.15},{x:80,y:5,w:104,d:.45},{x:14,y:42,w:78,d:.75},{x:74,y:46,w:84,d:1.0},{x:36,y:2,w:68,d:1.25}];
+  let h='<div class="dp-stage">'
+    +'<div class="dp-spot"></div>'
+    +paras.map(c=>'<div class="para-crate" style="left:'+c.x+'%;top:'+c.y+'%;width:'+c.w+'px;--d:'+c.d+'s"><div class="inner">'+crateSVG(true,false)+'</div></div>').join('')
+    +'<button class="dp-center" id="dpCenter" aria-label="Abrir el próximo drop">'+crateSVG(false,false)+'<span class="dp-glow"></span></button>'
+    +'<div class="dp-fog"></div>'
+    +'<span class="dp-tap">▲ TOCA LA CAJA</span>'
+    +'</div>'
+    +'<div id="nextPanel"></div>'
+    +'<div class="dp-avail"><div class="dp-avail-h">DROPS DISPONIBLES</div><div class="dp-row" id="dpRow"></div></div>';
+  box.innerHTML=h;
+  renderDpRow();
+  document.getElementById('dpCenter').addEventListener('click',revealNextDrop);
+  M('dropsPage').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+/* la caja central se eleva y revela el PRÓXIMO DROP con countdown */
+function revealNextDrop(){
+  const nd=nextDrop(); if(!nd) return;
+  const c=document.getElementById('dpCenter');
+  c.classList.add('up');
+  const panel=document.getElementById('nextPanel');
+  const media=nd.img ? '<img class="np-img" src="'+nd.img+'" alt="">' : '<div class="np-img" style="display:flex;align-items:center;justify-content:center">'+crateSVG(false,true)+'</div>';
+  panel.innerHTML=media
+    +'<div class="np-info"><div class="np-eyebrow">PRÓXIMO DROP</div>'
+    +'<div class="np-name">'+esc(nd.nombre)+'</div>'
+    +'<div class="np-meta">'+esc(nd.sabor||nd.marca||'')+'</div>'
+    +'<span class="np-date">📦 '+esc(dropDateTxt(nd))+'</span></div>'
+    +'<div class="np-cd">'
+    +'<div class="b"><div class="n" id="cdD">--</div><div class="l">DÍAS</div></div>'
+    +'<div class="b"><div class="n" id="cdH">--</div><div class="l">HORAS</div></div>'
+    +'<div class="b"><div class="n" id="cdM">--</div><div class="l">MIN</div></div>'
+    +'<div class="b"><div class="n" id="cdS">--</div><div class="l">SEG</div></div>'
+    +'</div>'
+    +'<button class="np-ver" data-npver="'+esc(nd.id)+'">VER PRODUCTO</button>';
+  panel.querySelector('[data-npver]').addEventListener('click',()=>openQuickView(nd.id));
+  setTimeout(()=>{ panel.classList.add('show'); updateDropsCount(); },280);
+  if(!OPENED.has(nd.id)){ OPENED.add(nd.id); saveOpened(); renderDpRow(); }
+}
+/* tarjetas de abajo: cerradas (misterio) hasta que el cliente las abra */
+function renderDpRow(){
+  const row=document.getElementById('dpRow'); if(!row) return;
+  row.innerHTML=dropsList().map(p=>{
+    const fecha=dropDateTxt(p);
+    if(OPENED.has(p.id)){
+      const media=p.img ? '<img src="'+p.img+'" alt="">' : crateSVG(false,true);
+      return '<div class="dcard"><div class="dc-media"><span class="nuevo-chip">NUEVO</span>'+media+'</div>'
+        +'<div class="dc-name">'+esc(p.nombre)+'</div>'
+        +'<div class="dc-meta">'+esc(p.sabor||p.marca||'')+'</div>'
+        +'<div class="dc-date">📦 '+esc(fecha)+'</div>'
+        +'<button class="dc-btn" data-dver="'+esc(p.id)+'">VER PRODUCTO</button></div>';
+    }
+    return '<div class="dcard closed" data-dopen="'+esc(p.id)+'"><div class="dc-media"><span class="nuevo-chip">NUEVO</span>'+crateSVG(false,true)+'</div>'
+      +'<div class="dc-name">¿ ? ?</div>'
+      +'<div class="dc-meta">Contenido secreto</div>'
+      +'<div class="dc-date">📦 '+esc(fecha)+'</div>'
+      +'<button class="dc-btn">ABRIR CAJA</button></div>';
+  }).join('');
+  row.querySelectorAll('[data-dopen]').forEach(el=>el.addEventListener('click',()=>{
+    el.classList.add('opening');
+    setTimeout(()=>{ OPENED.add(el.dataset.dopen); saveOpened(); renderDpRow(); }, 500);
+  }));
+  row.querySelectorAll('[data-dver]').forEach(b=>b.addEventListener('click',e=>{ e.stopPropagation(); openQuickView(b.dataset.dver); }));
+}
+function closeDropsPage(){
+  M('dropsPage').classList.remove('open');
+  M('dropsBoxes').innerHTML='';
+  document.body.style.overflow='';
+}
+function updateDropsCount(){
+  if(!document.getElementById('dropsPage').classList.contains('open')) return;
+  const dEl=document.getElementById('cdD'); if(!dEl) return;
+  const nd=nextDrop();
+  const t=(nd && nd.restock && nd.restock>Date.now()) ? nd.restock-Date.now() : null;
+  const z=n=>String(n).padStart(2,'0');
+  if(t===null){
+    dEl.textContent='--'; document.getElementById('cdH').textContent='--';
+    document.getElementById('cdM').textContent='--'; document.getElementById('cdS').textContent='--';
+    return;
+  }
+  let s=Math.floor(t/1000);
+  const d=Math.floor(s/86400); s-=d*86400;
+  const hh=Math.floor(s/3600); s-=hh*3600;
+  const mm=Math.floor(s/60); s-=mm*60;
+  dEl.textContent=z(d); document.getElementById('cdH').textContent=z(hh);
+  document.getElementById('cdM').textContent=z(mm); document.getElementById('cdS').textContent=z(s);
+}
+setInterval(updateDropsCount,1000);
+document.getElementById('dropsTab').addEventListener('click',openDropsPage);
+document.getElementById('dropsOpen').addEventListener('click',openDropsPage);
+document.getElementById('dpClose').addEventListener('click',closeDropsPage);
+document.addEventListener('keydown',e=>{ if(e.key==='Escape' && document.getElementById('dropsPage').classList.contains('open')) closeDropsPage(); });
 
 /* ===== Barra de cuenta regresiva (promo) ===== */
 function fmtCountdown(ms){
@@ -1091,8 +1329,8 @@ function moveProd(i,dir){
   render(); toast('Orden actualizado · recuerda Publicar');
 }
 
-document.querySelectorAll('#filters .fbtn').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#filters .fbtn').forEach(x=>x.classList.remove('active'));
+document.querySelectorAll('#filters .fbtn[data-f]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#filters .fbtn[data-f]').forEach(x=>x.classList.remove('active'));
   b.classList.add('active'); currentFilter=b.dataset.f; render();
 }));
 
@@ -1303,7 +1541,6 @@ M('mGuardar').addEventListener('click',()=>{
     id: editIdx===null ? 'PROD-'+Date.now() : DATA.productos[editIdx].id,
     created: editIdx===null ? Date.now() : DATA.productos[editIdx].created,
     vendidos: editIdx===null ? undefined : DATA.productos[editIdx].vendidos,
-    pin: editIdx===null ? undefined : DATA.productos[editIdx].pin,
     nombre:M('fNombre').value.trim(), marca:M('fMarca').value.trim(), sabor:M('fSabor').value.trim(),
     cat:M('fCat').value, desc:M('fDesc').value.trim(),
     precio:+M('fPrecio').value||0, pct:+M('fPct').value||0, stock:+M('fStock').value||0,
@@ -1357,6 +1594,9 @@ function buildCleanHTML(){
   document.getElementById('bcastModal').classList.remove('open');
   document.getElementById('bcCode').innerHTML='';
   document.getElementById('pdfModal').classList.remove('open');
+  document.getElementById('dropsPage').classList.remove('open');
+  document.getElementById('dropsBoxes').innerHTML='';
+  document.body.style.overflow='';
   document.getElementById('pager').innerHTML='';
   document.getElementById('topBtn').classList.remove('show');
   document.getElementById('printDate').textContent='';
@@ -1999,8 +2239,11 @@ function shareProduct(id){
 }
 function handleDeepLink(){
   if((location.hash||'')==='#drops'){
-    const sec=document.getElementById('dropsSec');
-    if(sec && sec.classList.contains('on')) sec.scrollIntoView({behavior:'smooth',block:'start'});
+    if(DATA.config.drops && dropsList().length){ openDropsPage(); }
+    else{
+      const sec=document.getElementById('dropsSec');
+      if(sec && sec.classList.contains('on')) sec.scrollIntoView({behavior:'smooth',block:'start'});
+    }
     return;
   }
   const m=(location.hash||'').match(/#p=([^&]+)/);
